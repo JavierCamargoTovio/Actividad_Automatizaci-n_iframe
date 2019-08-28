@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" class=" webkit chrome win js"><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>ACTUALIZACIÓN DE DATOS / SOLICITUD DE CLAVE</title>
+		<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" />		
+		<link href="css/estilos.css" rel="stylesheet" type="text/css" />
+		<link href="css/styles.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/fonts.css" type="text/css" charset="utf-8" />
+		<link href="css/jqModal.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-5G4N8Q"></script><script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+		<script src="js/jquery-ui.js" type="text/javascript"></script>
+		<script src="js/jquery.form.js" type="text/javascript"></script>
+		<script src="js/jquery.bgiframe.js" type="text/javascript"></script>
+		<script src="js/jquery.alerts.js" type="text/javascript"></script>
+		<script src="js/jquery.blockUI.js" type="text/javascript"></script>
+		<script language="javascript" type="text/javascript" src="js/utils.js" defer="defer"></script>
+		<script language="javascript" type="text/javascript" src="js/jqModal.js" defer="defer"></script>
+		<script language="javascript" type="text/javascript" src="js/analytics.js" defer="defer"></script>
+		<script type="text/javascript" src="js/css_browser_selector.js"></script>
+		<script type="text/javascript">
+
+	function getIncreaseHeight(valueHeight) {
+		var increase = 0;
+		var porcentageToIncrease = valueHeight * 0.05;
+		if (porcentageToIncrease &gt; 30) {
+			increase = 30;
+		} else {
+			if (porcentageToIncrease &lt; 10) {
+				increase = 10;
+			} else {
+				increase = porcentageToIncrease;
+			}
+		}
+		return increase;
+	}
+
+	function getNewHeightDocument() {
+		var heightIframe = 0;
+		var increase = 0;
+
+		//find the height of the iframe
+		var iframeContDOC = document;
+		var iframeContDE = iframeContDOC.documentElement;
+		var iframeContB = iframeContDOC.body;
+
+		var offsetHeightB = 0; try {offsetHeightB = iframeContB.offsetHeight;} catch(e) {offsetHeightB = 0;}
+		var clientHeightB = 0; try {clientHeightB = iframeContB.clientHeight;} catch(e) {clientHeightB = 0;}
+		var heightB_OC = Math.max(clientHeightB, offsetHeightB);
+
+		heightIframe = heightB_OC;
+		increase = getIncreaseHeight(heightIframe);
+		iframeContB.height = heightIframe + increase;
+
+		var scrollHeightB = 0; try {scrollHeightB = iframeContB.scrollHeight;} catch(e) {scrollHeightB = 0;}
+		var heightB_OCS = Math.max(scrollHeightB, heightB_OC);
+		var heightB = heightB_OCS;
+
+		var offsetHeightDE = 0; try {offsetHeightDE = iframeContDE.offsetHeight;} catch(e) {offsetHeightDE = 0;}
+		var clientHeightDE = 0; try {clientHeightDE = iframeContDE.clientHeight;} catch(e) {clientHeightDE = 0;}
+		var scrollHeightDE = 0; try {scrollHeightDE = iframeContDE.scrollHeight;} catch(e) {scrollHeightDE = 0;}
+		var heightDE_OC = Math.max(offsetHeightDE, clientHeightDE);
+		var heightDE_OCS = Math.max(heightDE_OC, scrollHeightDE);
+		var heightDE = heightDE_OCS;
+
+		//change the height of the iframe
+		heightIframe = Math.max(heightB, heightDE);
+		increase = getIncreaseHeight(heightIframe);
+
+		var heightDocument = heightIframe + increase;
+		return heightDocument;
+	}
+
+	function getIncreaseWidth(valueWidth) {
+		var increase = 0;
+		return increase;
+	}
+
+	function getNewWidthDocument() {
+		var widthIframe = 0;
+		var increase = 0;
+
+		//find the width of the iframe
+		var iframeContDOC = document;
+		var iframeContDE = iframeContDOC.documentElement;
+		var iframeContB = iframeContDOC.body;
+
+		var offsetWidthB = 0; try {offsetWidthB = iframeContB.offsetWidth;} catch(e) {offsetWidthB = 0;}
+		var clientWidthB = 0; try {clientWidthB = iframeContB.clientWidth;} catch(e) {clientWidthB = 0;}
+		var widthB_OC = Math.max(clientWidthB, offsetWidthB);
+
+		widthIframe = widthB_OC;
+		increase = getIncreaseWidth(widthIframe);
+		iframeContB.width = widthIframe + increase;
+
+		var scrollWidthB = 0; try {scrollWidthB = iframeContB.scrollWidth;} catch(e) {scrollWidthB = 0;}
+		var widthB_OCS = Math.max(scrollWidthB, widthB_OC);
+		var widthB = widthB_OCS;
+
+
+		var offsetWidthDE = 0; try {offsetWidthDE = iframeContDE.offsetWidth;} catch(e) {offsetWidthDE = 0;}
+		var clientWidthDE = 0; try {clientWidthDE = iframeContDE.clientWidth;} catch(e) {clientWidthDE = 0;}
+		var scrollWidthDE = 0; try {scrollWidthDE = iframeContDE.scrollWidth;} catch(e) {scrollWidthDE = 0;}
+		var widthDE_OC = Math.max(offsetWidthDE, clientWidthDE);
+		var widthDE_OCS = Math.max(widthDE_OC, scrollWidthDE);
+		var widthDE = widthDE_OCS;
+
+		//change the width of the iframe
+		widthIframe = Math.max(widthB, widthDE);
+		increase = getIncreaseWidth(widthIframe);
+
+		var widthDocument = widthIframe + increase;
+		return widthDocument;
+	}
+
+	function execCalcSizeDocument(withWidth) {
+		var message = "";
+		var dominioPortal = 'https://www.proteccion.com';
+		var heightDocument = getNewHeightDocument();
+		message = heightDocument;
+		if (withWidth) {
+			var widthDocument = getNewWidthDocument();
+			message = message + ";" + widthDocument;
+		}
+		parent.sendHeightToPortal();
+	}
+
+	$(document).ready(function() {
+		$(document).ajaxComplete(function() {
+			execCalcSizeDocument(true);
+		});
+		execCalcSizeDocument(true);
+	});
+</script>
+
+<script type="text/javascript">
+var gtmID = 'GTM-5G4N8Q';//GTM-NZPHNT desarrollo
+if(document.location.hostname == 'www.proteccion.com' || document.location.hostname == 'proteccion.com') {
+gtmID= 'GTM-KQTQFT';
+}
+window.dataLayer = window.dataLayer || [];
+dataLayer.push({'gtmID':gtmID});
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer',dataLayer[0].gtmID);
+!function(){if(void 0===e||null===e||"undefined"==typeof e||"object"!=typeof e){var e={};e.push=function(e){"object"==typeof e&amp;&amp;e.length&gt;0&amp;&amp;("_trackPageview"===e[0]?1===e.length?dataLayer.push({event:"pageview"}):2===e.length&amp;&amp;dataLayer.push({event:"pageview",page:e[1]}):"_trackEvent"===e[0]&amp;&amp;(1===e.length?dataLayer.push({event:"pushEventGA"}):2===e.length?dataLayer.push({event:"pushEventGA",categoria:e[1]}):3===e.length?dataLayer.push({event:"pushEventGA",categoria:e[1],accion:e[2]}):4===e.length?dataLayer.push({event:"pushEventGA",categoria:e[1],accion:e[2],etiqueta:e[3]}):5===e.length&amp;&amp;dataLayer.push({event:"pushEventGA",categoria:e[1],accion:e[2],etiqueta:e[3],value:e[4]})))},window._gaq=e}}();
+</script>
+		<script type="text/javascript">
+			var PATH = '/ActualizacionInformacionWEB';
+			var Ajax_SERVLET = PATH + "/ajax";
+			var isExtranet = false;
+			
+			function showTooltipCaptcha(){
+				var aTool = $("#aTooltipCaptcha");
+				$("#tool6").css("top",aTool.offset().top-20+"px").css("left",aTool.offset().left+25+"px");
+				MM_showHideLayers('tool6','','show');
+			}
+			
+	$(document).ready(function() {
+
+		var imagenCargando = $('#imagenCargando');
+
+		$(this).ajaxStart(function() {
+			iniciarBloqueador();
+			imagenCargando.show();
+		}).ajaxStop(function() {
+			detenerBloqueador();
+			imagenCargando.hide();
+		});
+
+		$("#identificacion").keypress(function(e) {
+			return soloNumeros(e);
+		});
+		$("#primerApellido").keypress(function(e) {
+			return soloLetrasNumeros(e);
+		});
+		$("#segundoApellido").keypress(function(e) {
+			return soloLetrasNumeros(e);
+		});
+		$("#nombres").keypress(function(e) {
+			return soloLetrasNumeros(e);
+		});
+
+		if ("" == "true") {
+			jAlert('- Se presento un error con la información ingresada\n','');
+		}
+		
+		$("#contenido1").css("display","block");
+		$("#contenido2").css("display","none");	
+	});	
+</script>
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<div id="principal">
+			
+			
+			
+			<div class="espacio"></div>
+			<div id="menu">
+				<div id="over">
+					<div id="pasoUno">
+						<img src="images/number1Over.png" width="34" height="54" alt="uno" />
+					</div>
+					<div id="pasoUnoTextoOver">
+						Valida tu Identidad
+					</div>
+				</div>
+				<div id="pasoDos">
+					<img src="images/number2.png" width="34" height="54" alt="dos" />
+				</div>
+				<div id="pasoDosTexto">
+					Responde 4 Preguntas
+				</div>
+				<div id="linea">
+					<img src="images/separador.png" width="1" height="22" alt="separador" />
+				</div>
+				<div id="pasoTres">
+					<img src="images/number3.png" width="34" height="54" alt="tres" />
+				</div>
+				<div id="pasoTresTexto">
+					Confirma correo, ingresa usuario y clave
+				</div>
+				<div id="linea">
+					<img src="images/separador.png" width="1" height="22" alt="separador" />
+				</div>
+				
+					<div id="pasoCuatro">
+						<img src="images/number4.png" width="34" height="54" alt="cuatro" />
+					</div>
+					<div id="pasoCuatroTexto">
+						Recibe tu clave en tu correo electrónico
+					</div>
+				
+			</div>
+			<div class="espacio"></div>
+			<form action="login.do" method="post" name="formularioDatos" id="formularioDatos">
+				<input name="estoyEnLogin" id="estoyEnLogin" value="true" type="hidden" />
+				<div id="izquierdoAct">
+					<div style="float: left;">
+						<h2 class="encabezadoTablaAct">
+							Validación de Identidad
+						</h2>
+						<span class="subtituloAct">Nombres y Apellidos</span>
+						<br />
+						<span class="label">Nombres:</span>
+						<span class="labelInput"><input type="text" class="estiloInput" id="nombres" name="nombres" autocomplete="off" />
+							<a onmouseover="MM_showHideLayers('tool1','','show')" onmouseout="MM_showHideLayers('tool1','','hide')">
+							<img class="imgInterrogante" src="images/iconPeqPregunta.png" /></a>
+						</span>
+						<div id="tool1">
+						<div class="contenedorToolTipIzq">
+						 
+						</div>	
+							<div id="esquinaArribaIzq"></div>
+							<div id="esquinaArribaDer"></div>
+							<div class="toolTip">
+								Ingrese su nombre completo.
+							</div>
+							<div id="esquinaAbajoIzq"></div>
+							<div id="esquinaAbajoDer"></div>
+								
+						</div>	
+						<div class="espacio" style="height: 0px;"></div>
+						<span class="label">Primer Apellido:</span>
+						<span class="labelInput"><input type="text" class="estiloInput" id="primerApellido" name="primerApellido" autocomplete="off" />
+							<a onmouseover="MM_showHideLayers('tool2','','show')" onmouseout="MM_showHideLayers('tool2','','hide')">
+							<img class="imgInterrogante" src="images/iconPeqPregunta.png" /></a>
+						</span>
+						<div id="tool2">
+						<div class="contenedorToolTipIzq">
+							 
+							</div>
+							<div id="esquinaArribaIzq"></div>
+							<div id="esquinaArribaDer"></div>
+							<div class="toolTip">
+								Debe ingresar su primer apellido.
+							</div>
+							<div id="esquinaAbajoIzq"></div>
+							<div id="esquinaAbajoDer"></div>
+						</div>
+						<div class="espacio" style="height: 0px;"></div>
+						<span class="label">Segundo Apellido: </span>
+						<span class="labelInput"><input type="text" class="estiloInput" id="segundoApellido" name="segundoApellido" autocomplete="off" />
+							<a onmouseover="MM_showHideLayers('tool3','','show')" onmouseout="MM_showHideLayers('tool3','','hide')">
+							<img class="imgInterrogante" src="images/iconPeqPregunta.png" /></a>
+						</span>						
+						<div id="tool3">						
+						<div class="contenedorToolTipIzq">
+							 </div>	
+							<div id="esquinaArribaIzq"></div>
+							<div id="esquinaArribaDer"></div>						
+							<div class="toolTip">
+								Debe ingresar su segundo apellido.
+							</div>
+							<div id="esquinaAbajoIzq"></div>
+							<div id="esquinaAbajoDer"></div>
+						</div>					
+						<div class="espacio" style="height: 0px;"></div>
+					</div>
+					<div style="float: left;">
+						<span class="subtituloAct">Documento de
+							Identificación</span>
+						<br />
+						<span class="label" style="padding-bottom: 0px;">Tipo y
+							Número de Documento:</span>
+						<span class="labelInput"> <select size="1" id="tipoIdentificacion" name="tipoIdentificacion" class="estiloSelect">
+								
+									
+										
+											<option value="1" selected="selected">
+										
+										
+										
+									
+										
+										
+										CC</option>
+										
+									
+								
+									
+										
+										
+											<option value="2">
+										
+										
+									
+										
+										
+										NIT</option>
+										
+									
+								
+									
+										
+										
+											<option value="4">
+										
+										
+									
+										
+										
+										CE</option>
+										
+									
+								
+							</select> <input type="text" class="estiloInput" id="identificacion" name="identificacion" style="width: 133px;" autocomplete="off" /><a style="vertical-align: middle;" onmouseover="MM_showHideLayers('tool4','','show')" onmouseout="MM_showHideLayers('tool4','','hide')"><img id="imgInterroganteT4" src="images/iconPeqPregunta.png" />
+						</a>
+						</span>
+						
+						
+						<div id="tool4">
+						<div class="contenedorToolTipIzq">
+							 </div>							
+							<div id="esquinaArribaIzq"></div>
+							<div id="esquinaArribaDer"></div>
+							<div class="toolTip">
+								Seleccione el tipo de identificación correspondiente a su documento de identidad. 
+								<br />
+								Ingrese el número de su documento de identidad.
+							</div>
+							<div id="esquinaAbajoIzq"></div>
+							<div id="esquinaAbajoDer"></div>
+							
+						</div>
+						
+						
+						<div class="espacio" style="height: 0px;"></div>
+						<span class="label" style="padding: 10px 9px 9px 9px;">Expedición (Fecha): </span>
+						<span class="labelInput"><input type="text" class="estiloInput hasDatepicker" id="fechaExpedicion" name="fechaExpedicion" style="width: 157px; padding-top: 2px;" /><img style="padding-left:3px; vertical-align: top;" class="ui-datepicker-trigger" src="images/iconCalendario.png" alt="Seleccione una fecha" title="Seleccione una fecha" width="24" height="24" align="top" /><a onmouseover="MM_showHideLayers('tool5','','show')" onmouseout="MM_showHideLayers('tool5','','hide')"><img id="imgInterroganteT5" src="images/iconPeqPregunta.png" />
+						</a>
+						</span>
+						
+						
+							<span class="label" style="padding: 10px 9px 9px 9px;width: 137px;"></span>
+							<span class="labelInput">
+								<div class="captcha">
+									<div class="campoCaptcha">
+										
+										<img class="imgcaptcha imagenCaptcha kaptchaLoad" src="/ActualizacionInformacionWEB/simpleCaptcha.png" id="imgCaptchaId" />
+										<div class="relative rela_contac rela_captcha" id="btnupdate_captcha">
+											<input type="button" class="captcha-reload errorred error_contac error_captcha actualizarCaptcha" value="" name="actualizar" id="actCaptcha" />
+										</div>
+									</div>								
+								</div>
+							</span>
+							<span class="label" style="padding: 10px 9px 9px 9px;">Digite las letras que se muestran en la imagen:</span>
+							<span class="labelInput">
+								<input type="text" class="estiloInput" id="answer" name="answer" autocomplete="off" maxlength="5" style="padding-top: 2px;" />
+								<a id="aTooltipCaptcha" style="vertical-align: middle;" onmouseover="showTooltipCaptcha();" onmouseout="MM_showHideLayers('tool6','','hide')">
+									<img id="imgInterroganteToolCaptcha" src="images/iconPeqPregunta.png" />
+								</a>
+							</span>
+							
+							<div id="tool6" style="display:none;position: absolute;">
+								<div class="contenedorToolTipIzq">
+								 </div>							
+								<div id="esquinaArribaIzq"></div>
+								<div id="esquinaArribaDer"></div>
+								<div class="toolTip" style="top: -20px !important;">
+									Este código nos permite identificar que el formulario ha sido completado por una persona y no por una máquina. Todo orientado a aumentar la seguridad de nuestros servicios
+								</div>
+								<div id="esquinaAbajoIzq"></div>
+								<div id="esquinaAbajoDer"></div>
+							</div>
+						
+						
+						<br />
+						
+						<div id="tool5">
+							<div class="contenedorToolTipIzq">
+							 
+							</div>
+							<div id="esquinaArribaIzq"></div>
+							<div id="esquinaArribaDer"></div>					
+							<div class="toolTipCedula">	
+								<img src="images/cedula.png" />				
+							</div>
+							<div id="esquinaAbajoIzq"></div>
+							<div id="esquinaAbajoDer"></div>
+						</div>
+						
+					</div>
+					<div class="espacio"></div>
+					<div class="espacio"></div>
+					<div class="tablaBotonesCentrados" style="width: 150px;">
+						<a href="javascript:;" class="estiloBoton2 gtmValidarIdentidadSolClave" onclick="validarFormularioDatos();">Validar mi identidad</a>
+					</div>
+				</div>
+				<div id="derechoAct">
+					<ul class="tabs">
+						<li style="padding: 0;">
+							<a href="javascript:;" class="estiloTabsSeleccionada gtmActiveSuFuturoSolClave" id="tab1"><span class="estiloSpanTab gtmActiveSuFuturoSolClave">Active su Futuro</span></a>
+						</li>
+						<li>
+							<a href="javascript:;" class="estiloTabs gtmMasVentajasSolClave" id="tab2"><span class="estiloSpanTab gtmMasVentajasSolClave">...más ventajas</span></a>
+						</li>					
+					</ul>
+					<div id="contenido1" class="contenidoTab" style="display: block;">		
+						<div class="letraAzul" style="padding-left: 15px;"><div class="espacio"></div>
+La mejor protección para sus pensiones y cesantías la brinda su clave personal.
+<div class="espacio"></div>
+<ul class="listaPeq">
+<li>Ahorre tiempo haciendo consultas y transacciones en línea</li>
+<li>Agilice el seguimiento de su ahorro y portafolios de inversión</li>
+<li>Administre su cuenta individual de forma confidencial</li>
+</ul>
+<div class="espacio"></div>
+<div class="espacio"></div>
+5 transacciones que puede hacer desde su casa u oficina
+<div class="espacio"></div>
+<span style="color: #000000;">Con solo su conexión a internet y su clave personal, usted puede: </span>
+<div class="espacio"></div>
+<ul class="listaPeqNum">
+<li><span>Realizar retiros con transferencia a su cuenta bancaria</span></li>
+<li><span>Hacer recomposición de cuentas</span></li>
+<li><span>Consultar saldos, movimientos y rentabilidades</span></li>
+<li><span>Imprimir certificados y constancias de afiliación</span></li>
+<li><span>Afiliarse a alternativas cerradas</span></li>
+</ul>
+<div class="espacio"></div>
+</div>			
+					</div>
+					<div id="contenido2" class="contenidoTab" style="display: none;">
+						<div class="letraAzul" style="padding-left: 15px;"><div class="espacio"></div>
+Autorice el envío de información a su correo electrónico y disfrute de los beneficios de recibir oportunamente en su correo electrónico la información que tenemos para acompañarle en la construcción de su ahorro. 
+<div class="espacio"></div>
+<div class="espacio"></div>
+Cuando usted nos autoriza el envió de información a su e-mail:
+<div class="espacio"></div>
+<ul class="listaPeq">
+<li>Recibe en menor tiempo las comunicaciones. Estas serán enviadas a su correo electrónico.</li>
+<li>Notificación en línea de los retiros de PV que realicen con su clave personal</li>
+<li>Administre su cuenta individual de forma confidencial</li>
+</ul>
+</div>
+					</div>																			
+				</div>
+			</form>
+		</div>
+	
+	<script type="text/javascript">
+	$("#fechaExpedicion").datepicker({
+		showOn : 'button',
+		buttonImage : 'images/iconCalendario.png',
+		buttonImageOnly : true,
+		changeMonth : true,
+		changeYear : true,
+		buttonText : 'Seleccione una fecha',
+		dateFormat : 'dd/mm/yy'
+	});
+	
+	$("#tab1").click(function(){
+		$("#contenido1").css("display","block");
+		$("#contenido2").css("display","none");
+		$("#tab1").removeClass("estiloTabs").addClass("estiloTabsSeleccionada");
+		$("#tab2").removeClass("estiloTabsSeleccionada").addClass("estiloTabs");
+	});
+	
+	$("#tab2").click(function(){
+		$("#contenido2").css("display","block");
+		$("#contenido1").css("display","none");
+		$("#tab2").removeClass("estiloTabs").addClass("estiloTabsSeleccionada");
+		$("#tab1").removeClass("estiloTabsSeleccionada").addClass("estiloTabs");
+	});
+</script><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+
+</body></html>
